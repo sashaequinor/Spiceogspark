@@ -80,11 +80,11 @@ const { randomUUID } = require('crypto');
       customerName: customerName,
       amount: amount,
       paymentDate: new Date().toLocaleDateString(),
-      paymentMethod: 'Vipps',
+      paymentMethod: 'Card',
       items: items
     };
-
-    await sendReceipt("sauravpandora107@gmail.com", order);
+  await sendReceipt(email, order);
+   await sendReceipt("spiceogsparkoslo@gmail.com", order);
 
 // res.json({
 //       success: true,

@@ -15,7 +15,8 @@ router.post('/create-payment', async (req, res) => {
         email,
         phone,
         amount,
-        cart_id,items
+        cart_id,items,order_id,
+        deliverySlot,deliveryDate
     } = req.body;
 const idempotencyKey = crypto.randomUUID();
     const orderRef = uuidv4();
@@ -43,62 +44,66 @@ const { randomUUID } = require('crypto');
       ]
     );
 
-    const token = await getAccessToken();
+//     const token = await getAccessToken();
 
-    const paymentPayload = {
+//     const paymentPayload = {
 
-      amount: {
-        currency: 'NOK',
-       // value: 1 * 100
-         value: amount * 100
-      },
+//       amount: {
+//         currency: 'NOK',
+//        // value: 1 * 100
+//          value: amount * 100
+//       },
 
-      paymentMethod: {
-        type: 'WALLET'
-      },
+//       paymentMethod: {
+//         type: 'WALLET'
+//       },
 
-      reference: orderRef,
+//       reference: orderRef,
 
-      returnUrl:
-        `${process.env.FRONTEND_URL}/payment-success/${orderRef}`,
+//       returnUrl:
+//         `${process.env.FRONTEND_URL}/payment-success/${orderRef}`,
 
-      userFlow: 'WEB_REDIRECT'
-    };
+//       userFlow: 'WEB_REDIRECT'
+//     };
 
-    const payment = await axios.post(
-      `${process.env.VIPPS_BASE_URL}/epayment/v1/payments`,
-      paymentPayload,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Merchant-Serial-Number': process.env.VIPPS_MERCHANT_SERIAL_NUMBER,
-          'Ocp-Apim-Subscription-Key':
-            process.env.VIPPS_SUBSCRIPTION_KEY,
-             'Idempotency-Key': randomUUID(),
-      'Content-Type': 'application/json'
-        }
-      }
-    );
-console.log(process.env.VIPPS_MERCHANT_SERIAL_NUMBER);
-    await db.promise().query(
-      `UPDATE orders
-       SET payment_reference = ?
-       WHERE order_ref = ?`,
-      [
-        payment.data.reference,
-        orderRef
-      ]
-    );
+//     const payment = await axios.post(
+//       `${process.env.VIPPS_BASE_URL}/epayment/v1/payments`,
+//       paymentPayload,
+//       {
+//         headers: {
+//           Authorization: `Bearer ${token}`,
+//           'Merchant-Serial-Number': process.env.VIPPS_MERCHANT_SERIAL_NUMBER,
+//           'Ocp-Apim-Subscription-Key':
+//             process.env.VIPPS_SUBSCRIPTION_KEY,
+//              'Idempotency-Key': randomUUID(),
+//       'Content-Type': 'application/json'
+//         }
+//       }
+//     );
+// console.log(process.env.VIPPS_MERCHANT_SERIAL_NUMBER);
+//     await db.promise().query(
+//       `UPDATE orders
+//        SET payment_reference = ?
+//        WHERE order_ref = ?`,
+//       [
+//         payment.data.reference,
+//         orderRef
+//       ]
+//     );
     const order = {
-      orderId: orderRef,
+      orderId: order_id,
       customerName: customerName,
       amount: amount,
       paymentDate: new Date().toLocaleDateString(),
-      paymentMethod: 'Vipps',
-      items: items
+      paymentMethod: 'On Stall Pickup',
+      items: items,
+      deliverySlot: deliverySlot,
+      deliveryDate: deliveryDate
     };
 
-    await sendReceipt("sauravpandora107@gmail.com", order);
+   await sendReceipt(email, order);
+   await sendReceipt("spiceogsparkoslo@gmail.com", order);
+    await sendReceipt("order@spiceogspark.no", order);
 
 // res.json({
 //       success: true,
@@ -113,7 +118,8 @@ console.log(process.env.VIPPS_MERCHANT_SERIAL_NUMBER);
 
     res.json({
       success: true,
-      redirectUrl: payment.data.redirectUrl
+      message: "Order Places Successfully. Order Detailed email sent successfully",
+      // redirectUrl: payment.data.redirectUrl
     });
 
   } catch (err) {

@@ -7,6 +7,8 @@ async function sendReceipt(customerEmail, orderData) {
     amount,
     items,
     paymentDate,
+      deliverySlot,
+      deliveryDate
   } = orderData;
 
   const itemsHtml = items
@@ -26,7 +28,7 @@ async function sendReceipt(customerEmail, orderData) {
     to: customerEmail,
     subject: `Receipt for Order #${orderId}`,
     html: `
-      <h2>Payment Receipt</h2>
+      <h2>Order Receipt - Pay at Counter</h2>
 
       <p>Hello ${customerName},</p>
 Dear Guest,
@@ -35,10 +37,13 @@ Dear Guest,
 
 Thank you for choosing Spice Og Spark Indisk Takeaway & Caterers!
 We have received your Take Away Order.
-you can pickup your Order  within 5-10 minutes
+you can pickup your Order  from Our Stall - Spice Og Spark Indisk Takeaway & Caterers, at Spikersuppa Oslo. 
+ <h2>Please tell your Order Number: ${orderId} at the counter when you come to pickup.</h2>
 
       <p><strong>Order ID:</strong> ${orderId}</p>
-      <p><strong>Payment Date:</strong> ${paymentDate}</p>
+      <p><strong>Booking  Date:</strong> ${paymentDate}</p>
+      <p><strong>Delivery Slot:</strong> ${deliverySlot}</p>
+      <p><strong>Delivery Date:</strong> ${deliveryDate}</p>
 
       <table border="1" cellpadding="8" cellspacing="0">
         <thead>
@@ -54,7 +59,7 @@ you can pickup your Order  within 5-10 minutes
       </table>
 
       <h3>Total: Nok ${amount}</h3>
-
+    <h2>Pay at Stall when Pickup</h2> 
       <p>Thank you for shopping with us.</p> Team Spice og Spark
     `,
   };
