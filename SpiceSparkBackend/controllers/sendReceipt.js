@@ -24,7 +24,7 @@ async function sendReceipt(customerEmail, orderData) {
     .join("");
 // ${process.env.GMAIL_USER}
   const mailOptions = {
-    from: `"Spice og Spark Indisk Takeaway & Caterers" <${process.env.GMAIL_USER}>`,
+    from: `"Spice og Spark Indisk Takeaway & Caterers" <spiceogsparkoslo@gmail.com>`,
     to: customerEmail,
     subject: `Receipt for Order #${orderId}`,
     html: `
