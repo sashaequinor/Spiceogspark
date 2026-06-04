@@ -1,5 +1,5 @@
 const transporter = require("./mailer");
-
+dns.setDefaultResultOrder("ipv4first");
 async function sendReceipt(customerEmail, orderData) {
   const {
     orderId,
