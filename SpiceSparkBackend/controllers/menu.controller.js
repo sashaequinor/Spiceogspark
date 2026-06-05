@@ -73,15 +73,23 @@ db.on('end', () => {
   console.log('Connection closed');
 });
 exports.getMenuByEvent = async (req, res) => {
-
+  try {
   const [rows] =
     await db.promise().query(
       `SELECT * FROM menu_items WHERE eventTypeId=?
       `,
       [req.params.eventTypeId]
     );
-  db.end(); 
+  
   res.send(rows);
+   } catch (error) {
+if(error)
+{
+  handleDisconnect();
+}
+
+    res.status(500).json(error);
+  }
   // db.end(); 
  // return res.status(200).json(rows);
 };
