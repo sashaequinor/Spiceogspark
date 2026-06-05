@@ -19,6 +19,12 @@ db.connect((err) => {
     console.log("MySQL Connected");
   }
 });
+db.on('error', (err) => {
+  if (err.code === 'ECONNRESET') {
+    console.error('Connection reset, reconnecting...');
+    handleDisconnect();
+  }
+});
 
 
 function handleDisconnect() {
