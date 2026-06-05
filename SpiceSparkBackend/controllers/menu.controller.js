@@ -42,14 +42,14 @@ exports.addMenu = async (req, res) => {
  } catch (error) {
   if(error)
   {
-    handleDisconnect();
+    //handleDisconnect();
   }
     res.status(500).json(error);
   }
 
 };
 db.on('error', err => {
-  handleDisconnect();
+  //handleDisconnect();
   console.error('DB Error:', err);
 
 });
@@ -70,7 +70,7 @@ function handleDisconnect() {
 
   connection.on('error', (err) => {
     if (err.code === 'PROTOCOL_CONNECTION_LOST') {
-      handleDisconnect(); // Recreate connection if lost
+      //handleDisconnect(); // Recreate connection if lost
     } else {
       throw err;
     }
@@ -94,7 +94,7 @@ exports.getMenuByEvent = async (req, res) => {
    } catch (error) {
 if(error)
 {
-  handleDisconnect();
+  //handleDisconnect();
 }
 
     res.status(500).json(error);

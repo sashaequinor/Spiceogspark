@@ -38,7 +38,7 @@ function handleDisconnect() {
 
   connection.on('error', (err) => {
     if (err.code === 'PROTOCOL_CONNECTION_LOST') {
-      handleDisconnect(); // Recreate connection if lost
+      //handleDisconnect(); // Recreate connection if lost
     } else {
       throw err;
     }

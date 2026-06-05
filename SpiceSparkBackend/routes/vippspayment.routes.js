@@ -129,7 +129,7 @@ db.end();
 
    if(err)
    {
-    handleDisconnect();
+    //handleDisconnect();
    }
     console.log(err.response?.data || err);
 
@@ -140,7 +140,7 @@ db.end();
 });
 
 db.on('error', err => {
-  handleDisconnect();
+  //handleDisconnect();
   console.error('DB Error:', err);
 
 });
@@ -161,7 +161,7 @@ function handleDisconnect() {
 
   connection.on('error', (err) => {
     if (err.code === 'PROTOCOL_CONNECTION_LOST') {
-      handleDisconnect(); // Recreate connection if lost
+      //handleDisconnect(); // Recreate connection if lost
     } else {
       throw err;
     }
