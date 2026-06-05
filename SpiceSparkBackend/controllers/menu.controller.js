@@ -1,5 +1,5 @@
 const db = require('../config/dbconnect');
-
+const mysql = require("mysql2");
 exports.addMenu = async (req, res) => {
 
   const {
@@ -11,7 +11,7 @@ exports.addMenu = async (req, res) => {
     image_url
   } = req.body;
 
-  await db.execute(
+  await db.promise().execute(
     `
     INSERT INTO menu_items
     (
@@ -51,7 +51,8 @@ function handleDisconnect() {
   password: process.env.DB_PASSWORD1,
   database: process.env.DB_NAME1,
     waitForConnections: true,
-  connectionLimit: 10
+  connectionLimit: 10,
+  queueLimit: 0
     /* configs */ });
 
   connection.connect((err) => {

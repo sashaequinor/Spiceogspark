@@ -5,7 +5,7 @@ const { v4: uuidv4 } = require('uuid');
 const sendReceipt = require("../controllers/sendReceipt");
 const db = require('../config/dbconnect');
 const { getAccessToken } = require('../controllers/vipps.service');
-
+const mysql = require("mysql2");
 router.post('/create-payment', async (req, res) => {
 
   try {
@@ -93,6 +93,9 @@ const { randomUUID } = require('crypto');
     const order = {
       orderId: order_id,
       customerName: customerName,
+      customeremail:email,
+      Email:Email,
+      customerphone: phone,
       amount: amount,
       paymentDate: new Date().toLocaleDateString(),
       paymentMethod: 'On Stall Pickup',
@@ -102,9 +105,9 @@ const { randomUUID } = require('crypto');
     };
 
    await  sendReceipt(email, order);
-  await  sendReceipt("spiceogsparkoslo@gmail.com", order);
-  await   sendReceipt("order@spiceogspark.no", order);
-db.end(); 
+  await  sendReceiptOrder("spiceogsparkoslo@gmail.com", order);
+  await   sendReceiptOrder("order@spiceogspark.no", order);
+
 // res.json({
 //       success: true,
 //       message: "Receipt email sent successfully",
@@ -132,6 +135,39 @@ db.end();
   }
 });
 
+db.on('error', err => {
+  handleDisconnect();
+  console.error('DB Error:', err);
+
+});
+function handleDisconnect() {
+  let connection = mysql.createConnection({ 
+    host: process.env.DB_HOST1,
+  user: process.env.DB_USER1,
+  password: process.env.DB_PASSWORD1,
+  database: process.env.DB_NAME1,
+    waitForConnections: true,
+  connectionLimit: 10,
+  queueLimit: 0
+    /* configs */ });
+
+  connection.connect((err) => {
+    if (err) setTimeout(handleDisconnect, 2000); // Retry connection
+  });
+
+  connection.on('error', (err) => {
+    if (err.code === 'PROTOCOL_CONNECTION_LOST') {
+      handleDisconnect(); // Recreate connection if lost
+    } else {
+      throw err;
+    }
+  });
+}
+
+
+db.on('end', () => {
+  console.log('Connection closed');
+});
 
 
 router.get('/verify/:orderRef', async (req, res) => {

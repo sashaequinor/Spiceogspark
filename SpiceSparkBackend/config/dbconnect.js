@@ -6,7 +6,8 @@ const db = mysql.createConnection({
   password: process.env.DB_PASSWORD1,
   database: process.env.DB_NAME1,
     waitForConnections: true,
-  connectionLimit: 10
+  connectionLimit: 10,
+  queueLimit: 0
 
 });
 
@@ -27,7 +28,8 @@ function handleDisconnect() {
   password: process.env.DB_PASSWORD1,
   database: process.env.DB_NAME1,
     waitForConnections: true,
-  connectionLimit: 10
+  connectionLimit: 10,
+  queueLimit: 0
     /* configs */ });
 
   connection.connect((err) => {
