@@ -8,7 +8,7 @@ exports.addToCart = async (req, res) => {
     quantity
   } = req.body;
 
-  await db.execute(
+  await db.promise().execute(
     `
     INSERT INTO cart_items
     (
@@ -28,4 +28,5 @@ exports.addToCart = async (req, res) => {
   res.send({
     success: true
   });
+   db.end(); 
 };

@@ -127,6 +127,10 @@ const { randomUUID } = require('crypto');
 db.end(); 
   } catch (err) {
 
+   if(err)
+   {
+    handleDisconnect();
+   }
     console.log(err.response?.data || err);
 
     res.status(500).json({

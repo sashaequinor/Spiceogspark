@@ -2,6 +2,7 @@ const db = require('../config/dbconnect');
 const mysql = require("mysql2");
 exports.addMenu = async (req, res) => {
 
+  try{
   const {
     eventTypeId,
     ItemNumber,
@@ -37,7 +38,15 @@ exports.addMenu = async (req, res) => {
   res.send({
     success: true
   });
-  // db.end(); 
+  db.end(); 
+ } catch (error) {
+  if(error)
+  {
+    handleDisconnect();
+  }
+    res.status(500).json(error);
+  }
+
 };
 db.on('error', err => {
   handleDisconnect();
