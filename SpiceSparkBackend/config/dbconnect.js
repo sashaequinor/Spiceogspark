@@ -7,7 +7,8 @@ const db = mysql.createConnection({
   database: process.env.DB_NAME1,
     waitForConnections: true,
   connectionLimit: 10,
-  queueLimit: 0
+  enableKeepAlive: true,
+  keepAliveInitialDelay: 0
 
 });
 
