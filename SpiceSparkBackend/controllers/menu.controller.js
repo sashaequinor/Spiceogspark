@@ -39,16 +39,23 @@ exports.addMenu = async (req, res) => {
   });
   // db.end(); 
 };
+db.on('error', err => {
+  console.error('DB Error:', err);
+});
 
+
+db.on('end', () => {
+  console.log('Connection closed');
+});
 exports.getMenuByEvent = async (req, res) => {
-debugger;
+
   const [rows] =
     await db.promise().query(
       `SELECT * FROM menu_items WHERE eventTypeId=?
       `,
       [req.params.eventTypeId]
     );
-debugger;
+  conn.end(); 
   res.send(rows);
   // db.end(); 
  // return res.status(200).json(rows);
