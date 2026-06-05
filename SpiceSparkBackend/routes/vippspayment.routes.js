@@ -94,7 +94,7 @@ const { randomUUID } = require('crypto');
       orderId: order_id,
       customerName: customerName,
       customeremail:email,
-      Email:Email,
+      email:email,
       customerphone: phone,
       amount: amount,
       paymentDate: new Date().toLocaleDateString(),

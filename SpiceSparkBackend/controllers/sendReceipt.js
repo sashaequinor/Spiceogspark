@@ -4,6 +4,8 @@ async function sendReceipt(customerEmail, orderData) {
   const {
     orderId,
     customerName,
+    email,
+    customerphone,
     amount,
     items,
     paymentDate,
@@ -78,7 +80,7 @@ async function sendReceiptOrder(customerEmail, orderData) {
   const {
     orderId,
     customerName,
-    Email,
+    email,
     customerphone,
     amount,
     items,
