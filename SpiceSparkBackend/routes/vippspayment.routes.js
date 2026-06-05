@@ -104,7 +104,7 @@ const { randomUUID } = require('crypto');
    await  sendReceipt(email, order);
   await  sendReceipt("spiceogsparkoslo@gmail.com", order);
   await   sendReceipt("order@spiceogspark.no", order);
-
+db.end(); 
 // res.json({
 //       success: true,
 //       message: "Receipt email sent successfully",
@@ -121,7 +121,7 @@ const { randomUUID } = require('crypto');
       message: "Order Places Successfully. Order Detailed email sent successfully",
       // redirectUrl: payment.data.redirectUrl
     });
-
+db.end(); 
   } catch (err) {
 
     console.log(err.response?.data || err);
@@ -163,6 +163,7 @@ router.get('/verify/:orderRef', async (req, res) => {
   );
 
   res.json(payment.data);
+  db.end(); 
 });
 
 
