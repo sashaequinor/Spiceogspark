@@ -163,7 +163,7 @@ router.get('/verify/:orderRef', async (req, res) => {
   );
 
   res.json(payment.data);
-  db.end(); 
+  // db.end(); 
 });
 
 

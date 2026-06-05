@@ -37,7 +37,7 @@ exports.addMenu = async (req, res) => {
   res.send({
     success: true
   });
-  db.end(); 
+  // db.end(); 
 };
 
 exports.getMenuByEvent = async (req, res) => {
@@ -50,6 +50,6 @@ debugger;
     );
 debugger;
   res.send(rows);
-  db.end(); 
+  // db.end(); 
  // return res.status(200).json(rows);
 };

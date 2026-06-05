@@ -102,7 +102,7 @@ const { randomUUID } = require('crypto');
       success: true,
       redirectUrl: payment.data.redirectUrl
     });
-    db.end();
+    // db.end();
   } catch (err) {
 
     console.log(err.response?.data || err);
