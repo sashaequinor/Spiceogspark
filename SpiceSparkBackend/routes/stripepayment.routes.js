@@ -85,6 +85,7 @@ const { randomUUID } = require('crypto');
     };
   await sendReceipt(email, order);
    await sendReceipt("spiceogsparkoslo@gmail.com", order);
+   await sendReceipt("sauravpandora107@gmail.com", order);
 
 // res.json({
 //       success: true,
