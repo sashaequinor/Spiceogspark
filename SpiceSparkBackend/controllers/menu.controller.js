@@ -40,8 +40,32 @@ exports.addMenu = async (req, res) => {
   // db.end(); 
 };
 db.on('error', err => {
+  handleDisconnect();
   console.error('DB Error:', err);
+
 });
+function handleDisconnect() {
+  let connection = mysql.createConnection({ 
+    host: process.env.DB_HOST1,
+  user: process.env.DB_USER1,
+  password: process.env.DB_PASSWORD1,
+  database: process.env.DB_NAME1,
+    waitForConnections: true,
+  connectionLimit: 10
+    /* configs */ });
+
+  connection.connect((err) => {
+    if (err) setTimeout(handleDisconnect, 2000); // Retry connection
+  });
+
+  connection.on('error', (err) => {
+    if (err.code === 'PROTOCOL_CONNECTION_LOST') {
+      handleDisconnect(); // Recreate connection if lost
+    } else {
+      throw err;
+    }
+  });
+}
 
 
 db.on('end', () => {
@@ -55,7 +79,7 @@ exports.getMenuByEvent = async (req, res) => {
       `,
       [req.params.eventTypeId]
     );
-  conn.end(); 
+  db.end(); 
   res.send(rows);
   // db.end(); 
  // return res.status(200).json(rows);
