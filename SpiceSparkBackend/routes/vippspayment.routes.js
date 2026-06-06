@@ -126,7 +126,7 @@ db.connect();
       message: "Order Places Successfully. Order Detailed email sent successfully",
       // redirectUrl: payment.data.redirectUrl
     });
-db.end(); 
+//db.end(); 
   } catch (err) {
 
    if(err)
@@ -205,7 +205,7 @@ router.get('/verify/:orderRef', async (req, res) => {
   );
 
   res.json(payment.data);
-  // db.end(); 
+  // //db.end(); 
 });
 
 

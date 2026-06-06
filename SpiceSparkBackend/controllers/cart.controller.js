@@ -28,5 +28,5 @@ exports.addToCart = async (req, res) => {
   res.send({
     success: true
   });
-   db.end(); 
+   //db.end(); 
 };

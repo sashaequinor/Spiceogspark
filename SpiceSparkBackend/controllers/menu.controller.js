@@ -39,7 +39,7 @@ console.log(db.state);
   res.send({
     success: true
   });
-  db.end(); 
+  //db.end(); 
  } catch (error) {
   if(error)
   {
@@ -100,6 +100,6 @@ if(error)
 
     res.status(500).json(error);
   }
-  // db.end(); 
+  // //db.end(); 
  // return res.status(200).json(rows);
 };
