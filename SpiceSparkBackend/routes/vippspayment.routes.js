@@ -3,6 +3,7 @@ const router = express.Router();
 const axios = require('axios');
 const { v4: uuidv4 } = require('uuid');
 const sendReceipt = require("../controllers/sendReceipt");
+const sendReceiptOrder = require("../controllers/sendReceiptOrder");
 const db = require('../config/dbconnect');
 const { getAccessToken } = require('../controllers/vipps.service');
 const mysql = require("mysql2");
