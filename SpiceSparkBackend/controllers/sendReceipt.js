@@ -113,7 +113,7 @@ Customer Order Below Detail :
 
 Name: ${customerName}
 Phone: ${customerphone}
-email: ${Email}
+email: ${email}
  <h2>Please tell your Order Number: ${orderId} at the counter when you come to pickup.</h2>
 
       <p><strong>Order ID:</strong> ${orderId}</p>
