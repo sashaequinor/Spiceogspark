@@ -21,6 +21,8 @@ router.post('/create-payment', async (req, res) => {
 const idempotencyKey = crypto.randomUUID();
     const orderRef = uuidv4();
 const { randomUUID } = require('crypto');
+console.log(db.state);
+db.connect();
     await db.promise().query(
       `INSERT INTO orders
        (

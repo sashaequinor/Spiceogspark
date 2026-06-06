@@ -11,7 +11,8 @@ exports.addMenu = async (req, res) => {
     price,
     image_url
   } = req.body;
-
+  db.connect();
+console.log(db.state);
   await db.promise().execute(
     `
     INSERT INTO menu_items
@@ -70,7 +71,7 @@ function handleDisconnect() {
 
   connection.on('error', (err) => {
     if (err.code === 'PROTOCOL_CONNECTION_LOST') {
-      //handleDisconnect(); // Recreate connection if lost
+      handleDisconnect(); // Recreate connection if lost
     } else {
       throw err;
     }
